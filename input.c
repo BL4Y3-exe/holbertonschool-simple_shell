@@ -3,5 +3,5 @@
 void print_promt(void)
 {
     if (isatty(STDIN_FILENO))
-        printf("($) ")
+        printf("($) ");
 }
