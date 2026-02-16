@@ -8,7 +8,7 @@ void remove_newline(char *str)
     {
         if (str[i] == '\n')
         {
-            str[i] == '\0';
+            str[i] = '\0';
             return;
         }
         i++;
