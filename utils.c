@@ -6,9 +6,9 @@ void remove_newline(char *str)
 
     while (str[i])
     {
-        if (str[i] == "\n")
+        if (str[i] == '\n')
         {
-            str[i] == "\0";
+            str[i] == '\0';
             return;
         }
         i++;
