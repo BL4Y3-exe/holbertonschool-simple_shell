@@ -8,7 +8,7 @@ void execute_command(char *command)
     argv[0] = command;
     argv[1] = NULL;
 
-    pid = firk();
+    pid = fork();
     if (pid == -1)
     {
         perror("Error");
