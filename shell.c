@@ -19,7 +19,7 @@ int main(void)
         
         remove_newline(line);
 
-        if (line[0] == "\0")
+        if (line[0] == '\0')
             continue;
         
         execute_command(line);
