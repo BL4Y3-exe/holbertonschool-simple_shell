@@ -60,6 +60,19 @@ char **split_args(char *s)
     return argv;
 }
 
+char *get_path(void)
+{
+    int i = 0;
+
+    while (environ[i])
+    {
+        if (strncmp(environ[i], "PATH=", 5) == 0)
+            return (environ[i] + 5);
+        i++;
+    }
+    return (NULL);
+}
+
 char *find_in_path(char *command)
 {
     char *path_env, *path_copy, *dir;
@@ -73,7 +86,7 @@ char *find_in_path(char *command)
         return (NULL);
     }
     
-    path_env = getenv("PATH");
+    path_env = get_path;
     if (path_env == NULL)
         return (NULL);
 
