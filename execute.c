@@ -30,18 +30,20 @@ void execute_command(char *command)
     {
         perror("Error");
         free(argv);
+        free(full_path)
         return;
     }
 
     if (pid == 0)
     {
-        execve(argv[0], argv, environ);
+        execve(full_path, argv, environ);
         perror(argv[0]);
         _exit(127);
     }
     else
     {
         waitpid(pid, &status, 0);
-        free(argv);
     }
+    free(full_path);
+    free(argv);
 }
