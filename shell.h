@@ -12,7 +12,7 @@
 extern char **environ;
 
 void print_promt(void);
-void execute_command(char *command);
+void execute_command(char *command, char *prog_name, int line_number);
 void trim_inplace(char *s);
 char **split_args(char *s);
 char *find_in_path(char *command);
