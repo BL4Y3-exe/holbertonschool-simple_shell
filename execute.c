@@ -5,16 +5,22 @@ void execute_command(char *command)
     pid_t pid;
     int status;
     char **argv;
+    char *full_path;
 
     if (command == NULL)
         return;
 
     argv = split_args(command);
-    if (argv == NULL)
-        return;
-
-    if (argv[0] == NULL)
+    if (argv == NULL || argv[0] == NULL)
     {
+        free(argv);
+        return;
+    }
+
+    full_path = find_in_path(argv[0]);
+    if (full_path == NULL)
+    {
+        fprintf(stderr, "%s: command not found\n", argv[0]);
         free(argv);
         return;
     }
