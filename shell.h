@@ -11,6 +11,6 @@ extern char **environ;
 
 void print_promt(void);
 void execute_command(char *command);
-void remove_newline(char *str);
+void trim_inplace(char *s);
 
 #endif
