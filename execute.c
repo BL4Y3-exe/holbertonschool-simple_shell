@@ -1,6 +1,6 @@
 #include "shell.h"
 
-void execute_command(char *command)
+void execute_command(char *command, char *prog_name, int line_number)
 {
     pid_t pid;
     int status;
@@ -20,15 +20,16 @@ void execute_command(char *command)
     full_path = find_in_path(argv[0]);
     if (full_path == NULL)
     {
-        fprintf(stderr, "%s: command not found\n", argv[0]);
+        fprintf(stderr, "%s: %d: %s: not found\n",
+        argv[0], line_number, argv[0]);
         free(argv);
-        return;
+        exit(127);
     }
 
     pid = fork();
     if (pid == -1)
     {
-        perror("Error");
+        perror("fork");
         free(argv);
         free(full_path);
         return;
@@ -38,7 +39,7 @@ void execute_command(char *command)
     {
         execve(full_path, argv, environ);
         perror(argv[0]);
-        _exit(127);
+        exit(127);
     }
     else
     {
