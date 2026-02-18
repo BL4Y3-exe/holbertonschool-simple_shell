@@ -5,9 +5,12 @@ int main(void)
     char *line = NULL;
     size_t len = 0;
     ssize_t read;
+    int line_number = 0;
 
     while (1)
     {
+        line_number++;
+
         if (isatty(STDIN_FILENO))
             print_promt();
 
@@ -23,7 +26,7 @@ int main(void)
         if (line[0] == '\0')
             continue;
         
-        execute_command(line);
+        execute_command(line, argv[0], line_number);
     }
 
     free(line);
