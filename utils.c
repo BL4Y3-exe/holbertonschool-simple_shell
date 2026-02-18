@@ -36,7 +36,7 @@ char **split_args(char *s)
     argv = malloc(bufsize * sizeof(char *));
     if (argv == NULL)
     {
-        perror("malloc")
+        perror("malloc");
         return NULL;
     }
 
