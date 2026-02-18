@@ -1,16 +1,23 @@
 #include "shell.h"
 
-void remove_newline(char *str)
+void trim_inplace(char *s)
 {
-    int i = 0;
+    size_t len, start = 0;
 
-    while (str[i])
+    if (s == NULL)
+        return;
+    
+    len = strlen(s);
+
+    while (len > 0 && (s[len - 1] == '\n' || s[len - 1] == '\r' ||
+    s[len - 1] == ' ' || s[len - 1] == '\t'))
     {
-        if (str[i] == '\n')
-        {
-            str[i] = '\0';
-            return;
-        }
-        i++;
+        s[--len] = '\0';
     }
+
+    while (s[start] && (s[start] == ' ' || s[start] == '\t'))
+        start++;
+
+    if (start > 0)
+        memmove(s, s + start, len - start + 1);
 }
