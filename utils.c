@@ -86,7 +86,7 @@ char *find_in_path(char *command)
         return (NULL);
     }
     
-    path_env = get_path;
+    path_env = get_path();
     if (path_env == NULL)
         return (NULL);
 
