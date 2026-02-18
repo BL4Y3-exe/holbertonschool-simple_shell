@@ -5,6 +5,9 @@ void execute_command(char *command)
     pid_t pid;
     char *argv[2];
 
+    if (command == NULL || command[0] == '\0')
+        return;
+
     argv[0] = command;
     argv[1] = NULL;
 
@@ -19,7 +22,7 @@ void execute_command(char *command)
     {
         if (execve(command, argv, environ) == -1)
             perror(command);
-        exit(EXIT_FAILURE);
+        _exit(EXIT_FAILURE);
     }
     else
     {
