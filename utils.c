@@ -64,7 +64,7 @@ char *find_in_path(char *command)
 {
     char *path_env, *path_copy, *dir;
     char full_path[1024];
-    struct stat st;
+    struct stat;
 
     if (strchr(command, '/'))
     {
