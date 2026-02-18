@@ -84,7 +84,7 @@ char *find_in_path(char *command)
     dir = strtok(path_copy, ":");
     while (dir != NULL)
     {
-        snprintf(fill_path, sizeof(full_path), "%s/%s", dir, command);
+        snprintf(full_path, sizeof(full_path), "%s/%s", dir, command);
 
         if (stat(full_path, &st) == 0)
         {
