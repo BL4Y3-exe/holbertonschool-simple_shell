@@ -12,5 +12,6 @@ extern char **environ;
 void print_promt(void);
 void execute_command(char *command);
 void trim_inplace(char *s);
+char **split_args(char *s);
 
 #endif
