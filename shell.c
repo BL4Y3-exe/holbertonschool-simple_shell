@@ -2,11 +2,11 @@
 
 int main(int argc, char **argv)
 {
-    (void)argc;
     char *line = NULL;
     size_t len = 0;
     ssize_t read;
     int line_number = 0;
+    (void)argc;
 
     while (1)
     {
