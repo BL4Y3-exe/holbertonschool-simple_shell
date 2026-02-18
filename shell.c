@@ -8,7 +8,8 @@ int main(void)
 
     while (1)
     {
-        print_promt();
+        if (isatty(STDIN_FILENO))
+            print_promt();
 
         read = getline(&line, &len, stdin);
         if (read == -1)
@@ -17,7 +18,7 @@ int main(void)
             exit(0);
         }
         
-        remove_newline(line);
+        trim_inplace(line);
 
         if (line[0] == '\0')
             continue;
@@ -25,6 +26,6 @@ int main(void)
         execute_command(line);
     }
 
+    free(line);
     return (0);
 }
-
