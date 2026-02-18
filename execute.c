@@ -21,7 +21,7 @@ void execute_command(char *command, char *prog_name, int line_number)
     if (full_path == NULL)
     {
         fprintf(stderr, "%s: %d: %s: not found\n",
-        argv[0], line_number, argv[0]);
+        prog_name, line_number, argv[0]);
         free(argv);
         exit(127);
     }
