@@ -30,7 +30,7 @@ void execute_command(char *command)
     {
         perror("Error");
         free(argv);
-        free(full_path)
+        free(full_path);
         return;
     }
 
