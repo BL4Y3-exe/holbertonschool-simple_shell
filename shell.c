@@ -1,6 +1,6 @@
 #include "shell.h"
 
-int main(void)
+int main(int argc, char **argv)
 {
     char *line = NULL;
     size_t len = 0;
