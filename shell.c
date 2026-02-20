@@ -35,7 +35,7 @@ int main(int argc, char **argv)
         if (rc == EXIT_SHELL)
         {
             free(line);
-            exit(0);
+            exit(last_status);
         }
         if (rc == 127 && !isatty(STDIN_FILENO))
         {
