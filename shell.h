@@ -14,6 +14,8 @@ extern char **environ;
 
 #define EXIT_SHELL 2
 
+extern int last_status;
+
 void print_promt(void);
 int execute_command(char *command, char *prog_name, int line_number);
 void trim_inplace(char *s);
