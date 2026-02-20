@@ -61,7 +61,7 @@ int execute_command(char *command, char *prog_name, int line_number)
         if (WIFEXITED(status))
             last_status = WEXITSTATUS(status);
         else if (WIFSIGNALED(status))
-            last_status = 128 + WTERMISG(status);
+            last_status = 128 + WTERMSIG(status);
         else
             last_status = status & 0xff;
     }
