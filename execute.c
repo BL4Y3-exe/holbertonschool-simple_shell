@@ -1,6 +1,6 @@
 #include "shell.h"
 
-void execute_command(char *command, char *prog_name, int line_number)
+int execute_command(char *command, char *prog_name, int line_number)
 {
     pid_t pid;
     int status;
