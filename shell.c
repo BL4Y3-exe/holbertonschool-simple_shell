@@ -1,5 +1,7 @@
 #include "shell.h"
 
+int last_status = 0;
+
 int main(int argc, char **argv)
 {
     char *line = NULL;
