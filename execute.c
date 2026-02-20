@@ -33,6 +33,8 @@ int execute_command(char *command, char *prog_name, int line_number)
                 prog_name, line_number, argv[0]);
         free(argv);
 
+    last_status = 127;
+
         if (!isatty(STDIN_FILENO))
             return (127);
         return (0);
@@ -56,6 +58,12 @@ int execute_command(char *command, char *prog_name, int line_number)
     else
     {
         waitpid(pid, &status, 0);
+        if (WIFEXITED(status))
+            last_status = WEXITSTATUS(status);
+        else if (WIFSIGNALED(status))
+            last_status = 128 + WTERMISG(status);
+        else
+            last_status = status & 0xff;
     }
 
     free(full_path);
