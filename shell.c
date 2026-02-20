@@ -6,6 +6,8 @@ int main(int argc, char **argv)
     size_t len = 0;
     ssize_t read;
     int line_number = 0;
+    int rc;
+    
     (void)argc;
 
     while (1)
@@ -21,13 +23,18 @@ int main(int argc, char **argv)
             free(line);
             exit(0);
         }
-        
+
         trim_inplace(line);
 
         if (line[0] == '\0')
             continue;
-        
-        execute_command(line, argv[0], line_number);
+
+        rc = execute_command(line, argv[0], line_number);
+        if (rc == 127 && !isatty(STDIN_FILENO))
+        {
+            free(line);
+            exit(127);
+        }
     }
 
     free(line);
