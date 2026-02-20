@@ -20,6 +20,12 @@ int execute_command(char *command, char *prog_name, int line_number)
         return (0);
     }
 
+    if (strcmp(argv[0], "exit") == 0)
+    {
+        free(argv);
+        return (EXIT_SHELL);
+    }
+
     full_path = find_in_path(argv[0]);
     if (full_path == NULL)
     {
