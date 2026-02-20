@@ -2,7 +2,8 @@
 
 void trim_inplace(char *s)
 {
-    size_t len, start = 0;
+    size_t len;
+    size_t start = 0;
 
     if (s == NULL)
         return;
@@ -10,7 +11,7 @@ void trim_inplace(char *s)
     len = strlen(s);
 
     while (len > 0 && (s[len - 1] == '\n' || s[len - 1] == '\r' ||
-    s[len - 1] == ' ' || s[len - 1] == '\t'))
+                        s[len - 1] == ' '  || s[len - 1] == '\t'))
     {
         s[--len] = '\0';
     }
@@ -26,7 +27,7 @@ void trim_inplace(char *s)
 char **split_args(char *s)
 {
     char *token;
-    char **argv = NULL;
+    char **argv;
     size_t bufsize = 8;
     size_t idx = 0;
 
@@ -51,13 +52,13 @@ char **split_args(char *s)
             if (argv == NULL)
             {
                 perror("realloc");
-                return NULL;
+                return (NULL);
             }
         }
         token = strtok(NULL, " \t");
     }
     argv[idx] = NULL;
-    return argv;
+    return (argv);
 }
 
 char *get_path(void)
@@ -80,10 +81,25 @@ char *find_in_path(char *command)
     char *dir;
     char *full_path;
     struct stat st;
-    size_t len;
+    size_t needed;
 
-    path = getenv("PATH");
-    if (path == NULL || *path == '\0')
+    if (command == NULL)
+        return (NULL);
+
+
+    if (strchr(command, '/') != NULL)
+    {
+        if (stat(command, &st) == 0)
+            return (strdup(command));
+        return (NULL);
+    }
+
+    path = get_path();
+    if (path == NULL)
+        return (NULL);
+
+
+    if (*path == '\0')
         return (NULL);
 
     path_copy = strdup(path);
@@ -93,8 +109,8 @@ char *find_in_path(char *command)
     dir = strtok(path_copy, ":");
     while (dir != NULL)
     {
-        len = strlen(dir) + strlen(command) + 2;
-        full_path = malloc(len);
+        needed = strlen(dir) + strlen(command) + 2; /* dir + '/' + cmd + '\0' */
+        full_path = malloc(needed);
         if (full_path == NULL)
         {
             free(path_copy);
