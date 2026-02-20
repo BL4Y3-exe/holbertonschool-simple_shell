@@ -30,6 +30,11 @@ int main(int argc, char **argv)
             continue;
 
         rc = execute_command(line, argv[0], line_number);
+        if (rc == EXIT_SHELL)
+        {
+            free(line);
+            exit(0);
+        }
         if (rc == 127 && !isatty(STDIN_FILENO))
         {
             free(line);
