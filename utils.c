@@ -75,36 +75,41 @@ char *get_path(void)
 
 char *find_in_path(char *command)
 {
-    char *path_env, *path_copy, *dir;
-    char full_path[1024];
+    char *path;
+    char *path_copy;
+    char *dir;
+    char *full_path;
     struct stat st;
+    size_t len;
 
-    if (strchr(command, '/'))
-    {
-        if (stat(command, &st) == 0)
-            return strdup(command);
-        return (NULL);
-    }
-    
-    path_env = get_path();
-    if (path_env == NULL)
+    path = getenv("PATH");
+    if (path == NULL || *path == '\0')
         return (NULL);
 
-    path_copy = strdup(path_env);
-    if(path_copy == NULL)
+    path_copy = strdup(path);
+    if (path_copy == NULL)
         return (NULL);
 
     dir = strtok(path_copy, ":");
     while (dir != NULL)
     {
-        snprintf(full_path, sizeof(full_path), "%s/%s", dir, command);
+        len = strlen(dir) + strlen(command) + 2;
+        full_path = malloc(len);
+        if (full_path == NULL)
+        {
+            free(path_copy);
+            return (NULL);
+        }
+
+        sprintf(full_path, "%s/%s", dir, command);
 
         if (stat(full_path, &st) == 0)
         {
             free(path_copy);
-            return strdup(full_path);
+            return (full_path);
         }
 
+        free(full_path);
         dir = strtok(NULL, ":");
     }
 
